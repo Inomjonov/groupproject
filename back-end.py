@@ -3,6 +3,7 @@ from pydantic import BaseModel
 import asyncpg
 import uvicorn
 import pandas
+import numpy as np
 
 # Database Connection
 async def get_db():
