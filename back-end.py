@@ -2,6 +2,7 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import asyncpg
 import uvicorn
+import pandas
 
 # Database Connection
 async def get_db():
