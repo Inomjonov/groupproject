@@ -3,6 +3,7 @@ from tkinter import *
 from tkinter import messagebox
 import database
 
+# Add task to db
 def add():
     if len(addtask.get()) == 0:
         messagebox.showerror("Error", "You have entered empty data")
@@ -11,22 +12,26 @@ def add():
         addtask.delete(0, END)
         populate()
 
+
 def populate():
     listbox.delete(0, END)
     for rows in database.show():
         listbox.insert(END, rows[1])
 
+# Delete task from db
 def deletetask():
     selected_task = listbox.get(ANCHOR)
     if selected_task:
         database.deletebytask(selected_task)
         populate()
 
+
 main = tkinter.Tk()
 main.title("Task Manager")
 main.geometry("600x800")
 main.resizable(True, True)
 main.configure(background="#1d1d1d")
+
 
 tkinter.Label(main, text="Task Manager", background="#1d1d1d", foreground="#eeeeee", font=("Verdana", 20)).pack(pady=10)
 
