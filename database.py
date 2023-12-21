@@ -1,33 +1,33 @@
+
 import sqlite3
 
-conn = sqlite3.connect('test.db')
-conn.execute('''CREATE TABLE IF NOT EXISTS todo(
-    id INTEGER PRIMARY KEY,
-    task TEXT NOT NULL
-);''')
+def connect():
+    conn = sqlite3.connect('tasks.db')
+    cur = conn.cursor()
+    cur.execute("CREATE TABLE IF NOT EXISTS tasks (id INTEGER PRIMARY KEY, task TEXT, urgency TEXT)")
+    conn.commit()
+    conn.close()
+
+def insertdata(task, urgency):
+    conn = sqlite3.connect('tasks.db')
+    cur = conn.cursor()
+    cur.execute("INSERT INTO tasks VALUES (NULL, ?, ?)", (task, urgency))
+    conn.commit()
+    conn.close()
 
 def show():
-    query = "SELECT * FROM todo;"
-    return conn.execute(query)
+    conn = sqlite3.connect('tasks.db')
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM tasks")
+    rows = cur.fetchall()
+    conn.close()
+    return rows
 
-def insertdata(task):
-    query = "INSERT INTO todo(task) VALUES(?);"
-    conn.execute(query, (task,))
+def deletebytask(task_id):
+    conn = sqlite3.connect('tasks.db')
+    cur = conn.cursor()
+    cur.execute("DELETE FROM tasks WHERE id=?", (task_id,))
     conn.commit()
+    conn.close()
 
-
-def deletebyid(taskid):
-    query = "DELETE FROM todo WHERE id =?;"
-    conn.execute(query, (taskid,))
-    conn.commit()
-
-def deletebytask(taskval):
-    query = "DELETE FROM todo WHERE task =?;"
-    conn.execute(query, (taskval,))
-    conn.commit()
-
-
-def updatedata(taskid, newtask):
-    query = "UPDATE todo SET task = ? WHERE id = ?;"
-    conn.execute(query, (newtask, taskid))
-    conn.commit()
+connect()
