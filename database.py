@@ -1,6 +1,8 @@
 
 import sqlite3
 
+
+#Connect to db
 def connect():
     conn = sqlite3.connect('tasks.db')
     cur = conn.cursor()
@@ -8,6 +10,7 @@ def connect():
     conn.commit()
     conn.close()
 
+#Insert data to db
 def insertdata(task, urgency):
     conn = sqlite3.connect('tasks.db')
     cur = conn.cursor()
@@ -15,6 +18,7 @@ def insertdata(task, urgency):
     conn.commit()
     conn.close()
 
+#Get data from db
 def show():
     conn = sqlite3.connect('tasks.db')
     cur = conn.cursor()
@@ -23,6 +27,7 @@ def show():
     conn.close()
     return rows
 
+#Delete task from db
 def deletebytask(task_id):
     conn = sqlite3.connect('tasks.db')
     cur = conn.cursor()
